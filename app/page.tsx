@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef } from "react";
 import {
   ClipboardList,
   DollarSign,
@@ -7,7 +8,7 @@ import {
   SquarePen,
   Truck,
 } from "lucide-react";
-import { useRef } from "react";
+
 export default function Home() {
   const signupRef = useRef<HTMLInputElement | null>(null);
   const handleScrollToSignupInput = () => {
@@ -43,6 +44,12 @@ export default function Home() {
           <form className="flex flex-col gap-3 md:flex-row">
             <input
               ref={signupRef}
+              type="text"
+              placeholder="Enter your name..."
+              className="flex-1 px-4 py-4 rounded-lg bg-slate-50 border border-slate-300 focus:ring-2 focus:ring-orange-500 focus:outline-none text-lg"
+              required
+            />
+            <input
               type="email"
               placeholder="Enter your email..."
               className="flex-1 px-4 py-4 rounded-lg bg-slate-50 border border-slate-300 focus:ring-2 focus:ring-orange-500 focus:outline-none text-lg"
