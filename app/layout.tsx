@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Solo Pest",
-  description: "The route management ",
+  description: "The route management software for entrepreneurs",
 };
 
 export default function RootLayout({

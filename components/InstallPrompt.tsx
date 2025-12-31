@@ -1,42 +1,60 @@
+"use client";
+
 import { useEffect, useState } from "react";
 
 export default function InstallPrompt() {
-  const [isIOS, setIsIOS] = useState(false);
-  const [isStandalone, setIsStandalone] = useState(false);
+  const [isInstalled, setIsInstalled] = useState(false);
+  const [isIOSDevice, setIsIOSDevice] = useState(false);
+  const [promptEvent, setPromptEvent] = useState<any>(null);
 
   useEffect(() => {
-    setIsIOS(
-      /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream
+    setIsInstalled(
+      window.matchMedia("(display-mode: standalone)").matches ||
+        (navigator as any).standalone === true
     );
 
-    setIsStandalone(window.matchMedia("(display-mode: standalone)").matches);
+    setIsIOSDevice(
+      /iPhone|iPad|iPod/.test(navigator.userAgent) && !(window as any).MSStream
+    );
+
+    const handler = (e: any) => {
+      e.preventDefault();
+      setPromptEvent(e);
+    };
+
+    window.addEventListener("beforeinstallprompt", handler);
+
+    return () => {
+      window.removeEventListener("beforeinstallprompt", handler);
+    };
   }, []);
 
-  if (isStandalone) {
-    return null; // Don't show install button if already installed
+  if (isInstalled) return null;
+
+  // Non-iOS: real install button
+  if (promptEvent && !isIOSDevice) {
+    return (
+      <button
+        onClick={async () => {
+          promptEvent.prompt();
+          await promptEvent.userChoice;
+          setPromptEvent(null);
+        }}
+      >
+        Install App
+      </button>
+    );
   }
 
-  return (
-    <div>
-      <h3>Install App</h3>
-      <button>Add to Home Screen</button>
-      {isIOS && (
-        <p>
-          To install this app on your iOS device, tap the share button
-          <span role="img" aria-label="share icon">
-            {" "}
-            ⎋{" "}
-          </span>
-          and then "Add to Home Screen"
-          <span role="img" aria-label="plus icon">
-            {" "}
-            ➕{" "}
-          </span>
-          .
-        </p>
-      )}
-    </div>
-  );
+  // iOS fallback
+  if (isIOSDevice) {
+    return (
+      <div>
+        <h3>Install App</h3>
+        <p>Tap the Share button ⎋ and then “Add to Home Screen” ➕</p>
+      </div>
+    );
+  }
+
+  return null;
 }
-
-

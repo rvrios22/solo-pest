@@ -1,4 +1,5 @@
 self.addEventListener("push", function (event) {
+  console.log('here')
   if (event.data) {
     const data = event.data.json();
     const options = {
@@ -18,5 +19,17 @@ self.addEventListener("push", function (event) {
 self.addEventListener("notificationclick", function (event) {
   console.log("Notification click received.");
   event.notification.close();
-  event.waitUntil(clients.openWindow("<https://your-website.com>"));
+  event.waitUntil(clients.openWindow("http://localhost:3000/"));
+});
+
+self.addEventListener("install", () => {
+  self.skipWaiting();
+});
+
+self.addEventListener("activate", (event) => {
+  event.waitUntil(self.clients.claim());
+});
+
+self.addEventListener("fetch", () => {
+  // noop – still establishes control
 });
