@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
+import { toast } from "sonner";
 export default function Home() {
   const [waitlistData, setWaitlistData] = useState({ name: "", email: "" });
   const signupRef = useRef<HTMLInputElement | null>(null);
@@ -19,9 +20,10 @@ export default function Home() {
     e.preventDefault();
     try {
       addToWaitlist({ name: waitlistData.name, email: waitlistData.email });
-      console.log(`Thank you ${waitlistData.name} for joining the waitlist!`);
+      toast.success(`Thank you ${waitlistData.name} for joining the waitlist!`);
+      setWaitlistData({ name: "", email: "" });
     } catch (err) {
-      console.error(err);
+      toast.error("Something went wrong, please try again.");
     }
   };
 
