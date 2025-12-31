@@ -1,18 +1,23 @@
 "use client";
 
-import InstallPrompt from "@/components/InstallPrompt";
 import {
   ClipboardList,
   DollarSign,
-  MapPin,
   ShieldAlert,
+  SquarePen,
   Truck,
 } from "lucide-react";
-
+import { useRef } from "react";
 export default function Home() {
+  const signupRef = useRef<HTMLInputElement | null>(null);
+  const handleScrollToSignupInput = () => {
+    if (!signupRef.current) return;
+    signupRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
+    signupRef.current.focus({ preventScroll: true });
+  };
+
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans">
-      <InstallPrompt />
       {/* --- HERO SECTION --- */}
       <section className="px-6 py-12 md:py-20 lg:px-8 max-w-lg mx-auto md:max-w-4xl">
         <div className="mb-6 flex items-center gap-2">
@@ -33,10 +38,11 @@ export default function Home() {
           getting paid.
         </p>
 
-        {/* Waitlist Form - Mobile Optimized */}
+        {/* Waitlist Form */}
         <div className="bg-white p-2 rounded-xl shadow-lg border border-slate-200">
           <form className="flex flex-col gap-3 md:flex-row">
             <input
+              ref={signupRef}
               type="email"
               placeholder="Enter your email..."
               className="flex-1 px-4 py-4 rounded-lg bg-slate-50 border border-slate-300 focus:ring-2 focus:ring-orange-500 focus:outline-none text-lg"
@@ -50,7 +56,7 @@ export default function Home() {
             </button>
           </form>
           <p className="text-xs text-center text-slate-400 mt-2">
-            Join 150+ operators. Early access members get 50% off for life.
+            Sign up for early access and exclusive discounts
           </p>
         </div>
       </section>
@@ -127,22 +133,22 @@ export default function Home() {
               Paid in the Driveway
             </h3>
             <p className="text-slate-600">
-              Send a text invoice and get paid via card before you even start
-              the engine to leave.
+              Tap a button and get paid via card before you even start the
+              engine to leave.
             </p>
           </div>
 
           {/* Feature 3 */}
           <div className="flex flex-col items-start">
             <div className="p-3 bg-blue-100 rounded-lg mb-4 text-blue-600">
-              <MapPin size={32} />
+              <SquarePen size={32} />
             </div>
             <h3 className="text-xl font-bold text-slate-900 mb-2">
-              Route Reality
+              Easy Signup
             </h3>
             <p className="text-slate-600">
-              Smart scheduling that fills the empty gaps in your map, not the
-              gaps in your free time.
+              Sign customers up with ease right from your form thanks to our
+              electronic agreements.
             </p>
           </div>
         </div>
@@ -159,7 +165,10 @@ export default function Home() {
             We are launching a private beta soon for 50 users.
           </p>
 
-          <button className="w-full py-4 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-lg text-lg shadow-lg transition-transform active:scale-95">
+          <button
+            onClick={() => handleScrollToSignupInput()}
+            className="w-full py-4 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-lg text-lg shadow-lg transition-transform active:scale-95"
+          >
             Join the Waitlist
           </button>
         </div>
