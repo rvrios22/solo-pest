@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import {
   ClipboardList,
   DollarSign,
@@ -8,9 +8,23 @@ import {
   SquarePen,
   Truck,
 } from "lucide-react";
-
+import { useMutation } from "convex/react";
+import { api } from "@/convex/_generated/api";
 export default function Home() {
+  const [waitlistData, setWaitlistData] = useState({ name: "", email: "" });
   const signupRef = useRef<HTMLInputElement | null>(null);
+  const addToWaitlist = useMutation(api.waitlist.insertToWaitlist);
+
+  const handleAddToWaitlist = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      addToWaitlist({ name: waitlistData.name, email: waitlistData.email });
+      console.log(`Thank you ${waitlistData.name} for joining the waitlist!`);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   const handleScrollToSignupInput = () => {
     if (!signupRef.current) return;
     signupRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -41,9 +55,16 @@ export default function Home() {
 
         {/* Waitlist Form */}
         <div className="bg-white p-2 rounded-xl shadow-lg border border-slate-200">
-          <form className="flex flex-col gap-3 md:flex-row">
+          <form
+            className="flex flex-col gap-3 md:flex-row"
+            onSubmit={handleAddToWaitlist}
+          >
             <input
               ref={signupRef}
+              value={waitlistData.name}
+              onChange={(e) =>
+                setWaitlistData({ ...waitlistData, name: e.target.value })
+              }
               type="text"
               placeholder="Enter your name..."
               className="flex-1 px-4 py-4 rounded-lg bg-slate-50 border border-slate-300 focus:ring-2 focus:ring-orange-500 focus:outline-none text-lg"
@@ -51,6 +72,10 @@ export default function Home() {
             />
             <input
               type="email"
+              value={waitlistData.email}
+              onChange={(e) =>
+                setWaitlistData({ ...waitlistData, email: e.target.value })
+              }
               placeholder="Enter your email..."
               className="flex-1 px-4 py-4 rounded-lg bg-slate-50 border border-slate-300 focus:ring-2 focus:ring-orange-500 focus:outline-none text-lg"
               required
