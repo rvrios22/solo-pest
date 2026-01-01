@@ -19,11 +19,18 @@ export default function Home() {
   const handleAddToWaitlist = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      addToWaitlist({ name: waitlistData.name, email: waitlistData.email });
+      await addToWaitlist({
+        name: waitlistData.name,
+        email: waitlistData.email,
+      });
       toast.success(`Thank you ${waitlistData.name} for joining the waitlist!`);
       setWaitlistData({ name: "", email: "" });
     } catch (err) {
-      toast.error("Something went wrong, please try again.");
+      if (err instanceof Error && err.message.includes("EMAIL_EXISTS")) {
+        toast.error("This email is already on the waitlist.");
+      } else {
+        toast.error("Something went wrong, please try again.");
+      }
     }
   };
 
