@@ -12,19 +12,28 @@ import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { toast } from "sonner";
 export default function Home() {
-  const [waitlistData, setWaitlistData] = useState({ name: "", email: "" });
+  const [waitlistData, setWaitlistData] = useState({
+    name: "",
+    email: "",
+    hp: "",
+  });
   const signupRef = useRef<HTMLInputElement | null>(null);
   const addToWaitlist = useMutation(api.waitlist.insertToWaitlist);
 
   const handleAddToWaitlist = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    // Honeypot check: if the hidden field is filled, treat as bot and ignore silently
+    if (waitlistData.hp && waitlistData.hp.trim() !== "") {
+      setWaitlistData({ name: "", email: "", hp: "" });
+      return;
+    }
     try {
       await addToWaitlist({
         name: waitlistData.name,
         email: waitlistData.email,
       });
       toast.success(`Thank you ${waitlistData.name} for joining the waitlist!`);
-      setWaitlistData({ name: "", email: "" });
+      setWaitlistData({ name: "", email: "", hp: "" });
     } catch (err) {
       if (err instanceof Error && err.message.includes("EMAIL_EXISTS")) {
         toast.error("This email is already on the waitlist.");
@@ -68,6 +77,21 @@ export default function Home() {
             className="flex flex-col gap-3 md:flex-row"
             onSubmit={handleAddToWaitlist}
           >
+            {/* Honeypot - visually hidden field to trap bots */}
+            <div className="sr-only">
+              <input
+                id="hp"
+                name="hp"
+                type="text"
+                autoComplete="off"
+                value={waitlistData.hp}
+                onChange={(e) =>
+                  setWaitlistData({ ...waitlistData, hp: e.target.value })
+                }
+                tabIndex={-1}
+                className="sr-only"
+              />
+            </div>
             <input
               ref={signupRef}
               value={waitlistData.name}
