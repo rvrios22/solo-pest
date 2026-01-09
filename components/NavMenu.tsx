@@ -7,17 +7,19 @@ import {
 
 function NavMenu() {
   return (
-    <NavigationMenu>
-      <NavigationMenuItem>
-        <NavigationMenuLink asChild>
-          <Link href="/">Home</Link>
-        </NavigationMenuLink>
-      </NavigationMenuItem>
-      <NavigationMenuItem className="list-none">
-        <NavigationMenuLink asChild>
-          <Link href="/why">Why SoloPest?</Link>
-        </NavigationMenuLink>
-      </NavigationMenuItem>
+    <NavigationMenu className="sticky top-0 w-full max-w-screen border-b border-slate-300 bg-slate-100 py-4 shadow-sm md:block">
+      <div className="flex">
+        <NavigationMenuItem className="list-none">
+          <NavigationMenuLink asChild className="text-lg">
+            <Link href="/">Home</Link>
+          </NavigationMenuLink>
+        </NavigationMenuItem>
+        <NavigationMenuItem className="list-none">
+          <NavigationMenuLink asChild className="text-lg">
+            <Link href="/why">Why SoloPest?</Link>
+          </NavigationMenuLink>
+        </NavigationMenuItem>
+      </div>
     </NavigationMenu>
   );
 }

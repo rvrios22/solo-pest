@@ -1,10 +1,12 @@
 function Page() {
   return (
-    <div className="m-auto w-4/5">
-      <h1 className="mb-4 text-center text-2xl font-bold">Why SoloPest?</h1>
-      <main>
+    <div className="mx-auto mt-8 w-4/5 max-w-[1100px]">
+      <h1 className="mb-4 text-center text-2xl font-bold md:text-3xl lg:text-4xl">
+        Why SoloPest?
+      </h1>
+      <main className="md:text-lg lg:text-xl">
         <section>
-          <span className="mt-4 block font-bold text-pretty">
+          <span className="mt-4 block font-bold text-pretty md:text-xl lg:text-2xl">
             Why Solo Pest Control Owners Win With Solo Pest App
           </span>{" "}
           Running a one-person pest control business is a different game. You’re
@@ -16,7 +18,7 @@ function Page() {
           move fast. Here’s why that matters.
         </section>
         <section>
-          <span className="mt-4 block font-bold text-pretty">
+          <span className="mt-4 block font-bold text-pretty md:text-xl lg:text-2xl">
             Built for One Owner, Not a Corporate Team
           </span>
           Most CRMs assume multiple users, roles, permissions, and internal
@@ -38,7 +40,7 @@ function Page() {
           </ul>
         </section>
         <section>
-          <span className="mt-4 block font-bold text-pretty">
+          <span className="mt-4 block font-bold text-pretty md:text-xl lg:text-2xl">
             Everything is designed around a single operator who needs to get in,
             do the work, and get paid.
           </span>
@@ -53,7 +55,7 @@ function Page() {
           </ul>
         </section>
         <section>
-          <span className="mt-4 block font-bold text-pretty">
+          <span className="mt-4 block font-bold text-pretty md:text-xl lg:text-2xl">
             You’re not paying for features that only make sense at scale. You’re
             paying for tools that support profitability from day one.
           </span>
@@ -65,7 +67,7 @@ function Page() {
           </ul>
         </section>
         <section>
-          <span className="mt-4 block font-bold text-pretty">
+          <span className="mt-4 block font-bold text-pretty md:text-xl lg:text-2xl">
             Personal Customer Service (From Someone Who Cares)
           </span>
           When you use Solo Pest App, you’re not ticket #48291 in a support
@@ -86,7 +88,7 @@ function Page() {
           control workflows—not generic SaaS scripts.
         </section>
         <section>
-          <span className="mt-4 block font-bold text-pretty">
+          <span className="mt-4 block font-bold text-pretty md:text-xl lg:text-2xl">
             Excellent Product Because the Scope Is Focused
           </span>
           Great software isn’t about having the most features. It’s about having
@@ -101,7 +103,7 @@ function Page() {
           designed for exactly your situation.{" "}
         </section>
         <section>
-          <span className="mt-4 block font-bold text-pretty">
+          <span className="mt-4 block font-bold text-pretty md:text-xl lg:text-2xl">
             Fast Feedback, Fast Feature Iteration
           </span>
           Large platforms move slowly. Decisions pass through layers of product
@@ -126,7 +128,7 @@ function Page() {
           You're not just a customer—you're part of the feedback loop.{" "}
         </section>
         <section>
-          <span className="mt-4 block font-bold text-pretty">
+          <span className="mt-4 block font-bold text-pretty md:text-xl lg:text-2xl">
             Software That Grows With You (Without Forcing You to Grow)
           </span>
           Some tools pressure you into upgrading plans, adding users, or
@@ -140,7 +142,7 @@ function Page() {
           vendor.
         </section>
         <section>
-          <span className="mt-4 block font-bold text-pretty">
+          <span className="mt-4 block font-bold text-pretty md:text-xl lg:text-2xl">
             Designed for Independence
           </span>
           Entrepreneurship is about freedom:
@@ -155,7 +157,7 @@ function Page() {
           baggage.{" "}
         </section>
         <section>
-          <span className="mt-4 block font-bold text-pretty">
+          <span className="mt-4 block font-bold text-pretty md:text-xl lg:text-2xl">
             The Bottom Line
           </span>
           If you’re a solo pest control entrepreneur, you don’t need big-company
